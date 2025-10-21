@@ -17,73 +17,14 @@ jobs:
       id-token: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
-      - name: Set Compact environment variables
-        run: |
-          COMPACT_HOME="$HOME/compactc"
-          echo "COMPACT_HOME=$COMPACT_HOME" >> "$GITHUB_ENV"
-          echo "$COMPACT_HOME" >> "$GITHUB_PATH"
+      - name: Setup Environment
+        uses: ./.github/actions/setup
 
-      - name: Cache Compact compiler
-        id: cache-compact
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.COMPACT_HOME }}
-          key: compact-compiler-0.23.0
-          restore-keys: |
-            compact-compiler-
-
-      - name: Install Compact compiler
-        if: steps.cache-compact.outputs.cache-hit != 'true'
-        env:
-          COMPILER_VERSION: "0.23.0"
-          LANGUAGE_VERSION: "0.15.0"
-        run: |
-          set -euo pipefail
-          mkdir -p "$COMPACT_HOME"
-          ZIP_FILE="compactc_v${COMPILER_VERSION}_x86_64-unknown-linux-musl.zip"
-          DOWNLOAD_URL="https://d3fazakqrumx6p.cloudfront.net/artifacts/compiler/compactc_${COMPILER_VERSION}/${ZIP_FILE}"
-          echo "⬇️ Downloading Compact compiler..."
-          curl -Ls "$DOWNLOAD_URL" -o "$COMPACT_HOME/compactc.zip"
-          echo "📦 Extracting..."
-          unzip -qo "$COMPACT_HOME/compactc.zip" -d "$COMPACT_HOME"
-          chmod +x "$COMPACT_HOME"/{compactc,compactc.bin,zkir}
-
-      - name: Verify Compact compiler installation
-        run: |
-          echo "✅ Verifying installation..."
-          if [ ! -f "$COMPACT_HOME/compactc" ]; then
-            echo "::error::❌ compactc not found in $COMPACT_HOME"
-            exit 1
-          fi
-          echo "🤖 Testing installation..."
-          "$COMPACT_HOME/compactc" --version
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 10.4.1
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22.x'
-          cache: 'pnpm'
-
-      - name: Build compact package
-        run: |
-          cd packages/compact
-          pnpm install
-          pnpm run build
-          cd ../../
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build packages
+      - name: Build all packages
         run: pnpm build
 
       - name: Create Release Pull Request or Publish to npm

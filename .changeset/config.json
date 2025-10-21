@@ -3,7 +3,7 @@
   "changelog": [
     "@changesets/changelog-github",
     {
-      "repo": "OpenZeppelin/midnight-dapps"
+      "repo": "OpenZeppelin/midnight-apps"
     }
   ],
   "commit": false,
@@ -12,5 +12,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@openzeppelin-midnight-apps/lunarswap-ui"]
+  "ignore": ["@openzeppelin/midnight-apps-lunarswap-ui"]
 }
