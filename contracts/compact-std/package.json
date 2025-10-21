@@ -1,8 +1,7 @@
 {
   "name": "@openzeppelin/midnight-apps-compact-std",
   "version": "1.0.0-alpha.1",
-  "private": true,
-  "description": "",
+  "description": "A helper Compact package for the STD library types",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -25,7 +24,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "packageManager": "pnpm@10.4.1",
   "devDependencies": {
     "@types/node": "^22.15.29",
