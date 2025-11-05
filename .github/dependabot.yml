@@ -21,3 +21,48 @@ updates:
       interval: weekly
     open-pull-requests-limit: 5
     rebase-strategy: auto
+
+  - package-ecosystem: npm
+    directory: /apps/lunarswap-ui
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /contracts/access
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /contracts/compact-std
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /contracts/math
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /contracts/shielded-token
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /contracts/structs
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /packages/biome-config
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /packages/compact
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /packages/logger
+    schedule:
+      interval: daily
